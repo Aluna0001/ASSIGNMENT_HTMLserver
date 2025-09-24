@@ -18,14 +18,58 @@
       .button-container button {
         margin: 10px;
         padding: 10px 24px;
-        font-size: 16px;
+        font-size: 18px;
         cursor: pointer;
+        width: 220px;
+        min-width: 220px;
+        max-width: 220px;
+        border-radius: 8px;
+        border: 2px solid #4caf50;
+        background-color: #e8f5e9;
+        transition: background 0.2s, box-shadow 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+      }
+      .button-container button:hover {
+        background-color: #c8e6c9;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+      .dino-emoji {
+        font-size: 1.4em;
+        margin-right: 8px;
       }
     </style>
     <div class="button-container">
-      <button>Triceratops</button>
-      <button>Velociraptor</button>
-      <button>T-rex</button>
+      <button id="triceratops-btn">
+        <span class="dino-emoji">🦕</span>Triceratops
+      </button>
+      <button id="velociraptor-btn">
+        <span class="dino-emoji">🦎</span>Velociraptor
+      </button>
+      <button id="trex-btn"><span class="dino-emoji">🦖</span>T-rex</button>
     </div>
+    <script>
+      function yearsAgo(millionYearsAgo) {
+        return millionYearsAgo * 1_000_000;
+      }
+
+      document.getElementById("triceratops-btn").addEventListener("click", function () {
+        const years = yearsAgo(66);
+        alert(`Triceratops lived about ${years.toLocaleString()} years ago.`);
+      });
+
+      document.getElementById("velociraptor-btn").addEventListener("click", function () {
+        const years = yearsAgo(71);
+        alert(`Velociraptor lived about ${years.toLocaleString()} years ago.`);
+      });
+
+      document.getElementById("trex-btn").addEventListener("click", function () {
+        const years = yearsAgo(66);
+        alert(`T-rex lived about ${years.toLocaleString()} years ago.`);
+      });
+    </script>
   </body>
 </html>
