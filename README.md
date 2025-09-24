@@ -1,1 +1,1 @@
-Project for EK
+Project for EK about dinosaurs
