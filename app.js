@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-//reads all files from folder "public, including css and html"
+//reads all files from folder "public"
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
