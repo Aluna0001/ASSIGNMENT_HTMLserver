@@ -4,11 +4,9 @@ const app = express();
 //reads all files from folder "public, including css and html"
 app.use(express.static("public"));
 
-app.get(
-  "/"(requestAnimationFrame, (res) => {
-    res.sendFile(__dirname + "/public/index.html");
-  })
-);
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 const PORT = 8080;
 app.listen(PORT, () => {
