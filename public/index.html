@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Time</title>
   </head>
+
   <body>
     <style>
       .button-container {
@@ -41,7 +42,50 @@
         font-size: 1.4em;
         margin-right: 8px;
       }
+
+      .message-container {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        border: 2px solid #dee2e6;
+        min-height: 60px;
+        max-width: 500px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .message-text {
+        font-size: 18px;
+        color: #2c3e50;
+        font-weight: 400;
+        line-height: 1.7;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        letter-spacing: 0.3px;
+      }
+      
+      .message-text strong {
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: 0.5px;
+      }
+      
+      .message-text .year {
+        font-weight: 800;
+        font-size: 17px;
+        letter-spacing: 0.2px;
+      }
+      
+      .message-text .current-year {
+        font-weight: 700;
+        font-size: 17px;
+        letter-spacing: 0.2px;
+      }
     </style>
+
     <div class="button-container">
       <button id="triceratops-btn">
         <span class="dino-emoji">🦕</span>Triceratops
@@ -50,26 +94,66 @@
         <span class="dino-emoji">🦎</span>Velociraptor
       </button>
       <button id="trex-btn"><span class="dino-emoji">🦖</span>T-rex</button>
+      
+      <div class="message-container">
+        <div class="message-text" id="message-text">
+          Click on a dinosaur to get information
+        </div>
+      </div>
     </div>
+
     <script>
       function yearsAgo(millionYearsAgo) {
         return millionYearsAgo * 1_000_000;
       }
 
-      document.getElementById("triceratops-btn").addEventListener("click", function () {
-        const years = yearsAgo(66);
-        alert(`Triceratops lived about ${years.toLocaleString()} years ago.`);
-      });
+      // New function using Date Object to calculate date
+      function calculateDinosaurDate(millionYearsAgo) {
+        const currentDate = new Date();
+        const years = yearsAgo(millionYearsAgo);
+        
+        // Calculate date
+        const dinosaurDate = new Date(currentDate.getFullYear() - years, currentDate.getMonth(), currentDate.getDate());
+        
+        return {
+          years: years,
+          date: dinosaurDate,
+          yearOnly: currentDate.getFullYear() - years
+        };
+      }
 
-      document.getElementById("velociraptor-btn").addEventListener("click", function () {
-        const years = yearsAgo(71);
-        alert(`Velociraptor lived about ${years.toLocaleString()} years ago.`);
-      });
+      // Function to show dino info
+      function showDinosaurInfo(dinosaurName, millionYearsAgo) {
+        const messageElement = document.getElementById('message-text');
+        const info = calculateDinosaurDate(millionYearsAgo);
+        
+        const currentYear = new Date().getFullYear();
+        const message = `<strong>${dinosaurName}</strong> lived <span class="year">${info.years.toLocaleString()}</span> years ago.
+        
+That is the same as <span class="year">${info.yearOnly.toLocaleString()}</span> B.C.
+        
+Today, it is <span class="current-year">${currentYear}</span>, so that is <span class="year">${info.years.toLocaleString()}</span> years ago.`;
+        
+        messageElement.innerHTML = message.replace(/\n/g, '<br>');
+      }
 
-      document.getElementById("trex-btn").addEventListener("click", function () {
-        const years = yearsAgo(66);
-        alert(`T-rex lived about ${years.toLocaleString()} years ago.`);
-      });
+      document
+        .getElementById("triceratops-btn")
+        .addEventListener("click", function () {
+          showDinosaurInfo('Triceratops', 66);
+        });
+
+      document
+        .getElementById("velociraptor-btn")
+        .addEventListener("click", function () {
+          showDinosaurInfo('Velociraptor', 71);
+        });
+
+      document
+        .getElementById("trex-btn")
+        .addEventListener("click", function () {
+          showDinosaurInfo('T-rex', 66);
+        });
     </script>
   </body>
 </html>
